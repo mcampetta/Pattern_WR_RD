@@ -8,7 +8,7 @@ do
 	echo "Enter (2) for 54 Pattern (second pass)"          
 	echo "Enter (q) to exit"
 	echo "==================================================="
-	echo -e "Enter your choice \c"
+	echo -e "Enter your choice: \c"
 	read -r choice
 	case "$choice" in
 		1) 	echo "=============================================="
@@ -17,7 +17,7 @@ do
 			echo "=============================================="
 			echo "=============================================="
 			echo -e "Supplying FIFO file with 55 datastream .."
-			echo -e '\x55\xAA' | tr -d '\n' | xargs yes | tr -d '\n' > 55 &
+			echo -e '\x55' | tr -d '\n' | xargs yes | tr -d '\n' > 55 &
 			echo "=============================================="
 			echo "======================================"
 			echo -e "Listing available storage devices.."
@@ -34,6 +34,7 @@ do
 				esac
 			echo "Fill Complete."
 			echo "Press any key to quit"
+			pkill -P $$
 			read -r quit
 			exit;;
 		2)	echo "=============================================="
@@ -59,8 +60,10 @@ do
 				esac
 			echo "Fill Complete."
 			echo "Press any key to quit"
+			pkill -P $$
 			read -r quit
 			exit;;
-		q) exit ;;
+		q) pkill -P $$
+		   exit ;;
 	esac
 done
