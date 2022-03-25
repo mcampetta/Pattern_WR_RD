@@ -1,0 +1,47 @@
+clear
+while true
+do
+	echo "==================================================="
+	echo " Ontrack Erasure Verification Pattern Fill Script  "
+	echo "==================================================="
+	echo "Enter (1) for 55aa Pattern (first pass)" 
+	echo "Enter (2) for aa55 Pattern (second pass)"          
+	echo "Enter (q) to exit"
+	echo -e "\n"
+	echo -e "Enter your choice \c"
+	read -r choice
+	echo -e "\n"
+	case "$choice" in
+		1) 	echo -e "Creating FIFO pipe named 55aa"
+			mkfifo 55aa
+			echo -e "\n"
+			echo -e "Supplying FIFO file with 55aa datastream - process will be running in parralell.."
+			echo -e '\x55\xAA' | tr -d '\n' | xargs yes | tr -d '\n' >55aa &
+			echo -e "Listing available storage devices"
+			lsblk -a | sed '/loop/d'
+			echo -e "Type name of target storage device: \c"
+			read -r "storagedevice"
+			echo -e "Proceeding to fill $storagedevice with 55aa pattern. 
+			echo -e "Type (yes) to continue or (no) to quit \c"
+			ready -r confirmresponse
+				case $choice2 in 
+					yes) dd iflag=fullblock bs=32768 if=55aa of=/dev/$storagedevice &
+					no) exit ;;
+		2)	echo -e "Creating FIFO pipe named 55aa"
+			mkfifo 55aa
+			echo -e "\n"
+			echo -e "Supplying FIFO file with 55aa datastream - process will be running in parralell.."
+			echo -e '\xAA\x55' | tr -d '\n' | xargs yes | tr -d '\n' >55aa &
+			echo -e "Listing available storage devices"
+			lsblk -a | sed '/loop/d'
+			echo -e "Type name of target storage device: \c"
+			read -r "storagedevice"
+			echo -e "Proceeding to fill $storagedevice with 55aa pattern. 
+			echo -e "Type (yes) to continue or (no) to quit \c"
+			ready -r confirmresponse
+				case $choice2 in 
+					yes) dd iflag=fullblock bs=32768 if=55aa of=/dev/$storagedevice &
+					no) exit ;;
+		q) exit ;;
+	esac
+done
