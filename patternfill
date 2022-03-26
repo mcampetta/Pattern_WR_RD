@@ -23,7 +23,7 @@ do
 	echo "Enter (q) to exit"
 	echo "==================================================="
 	fi
-	echo "Enter your choice: \c"
+	echo "Enter your choice: "
 	read -r choice
 	case "$choice" in
 		1) 	fillcheck="false"
@@ -48,15 +48,15 @@ do
 			fi
 			echo "========================================="
 			echo "Type name of target storage device"
-			echo "(ex "disk2s1" for mac ex "sdb" for linux) : \c"
+			echo "(ex "disk2s1" for mac ex "sdb" for linux) : "
 			read -r "storagedevice"
 			echo "Proceeding to fill $storagedevice with 55aa pattern."
-			echo "Type (y) to continue \c"
+			echo "Type (y) to continue "
 			read -r confirmresponse
 				case $confirmresponse in 
 					y) dd bs=32768 if=55aa of=/dev/$storagedevice &
 							echo "Fill Task Started, you may check progress with (3) at the main menu"
-							echo "Press any key to go to main menu \c"
+							echo "Press any key to go to main menu "
 							read -r continue;;
 					n) exit ;;
 				esac;;
@@ -82,10 +82,10 @@ do
 			fi
 			echo "========================================="
 			echo "Type name of target storage device"
-			echo "(ex "disk2s1" for mac ex "sdb" for linux) : \c"
+			echo "(ex "disk2s1" for mac ex "sdb" for linux) : "
 			read -r "storagedevice"
 			echo "Proceeding to fill $storagedevice with aa55 pattern."
-			echo "Type (y) to continue \c"
+			echo "Type (y) to continue "
 			read -r confirmresponse
 				case $confirmresponse in 
 					y) dd bs=32768 if=aa55 of=/dev/$storagedevice &
