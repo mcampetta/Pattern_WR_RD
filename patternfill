@@ -54,7 +54,12 @@ do
 			echo "Type (y) to continue "
 			read -r confirmresponse
 				case $confirmresponse in 
-					y) dd bs=32768 if=55aa of=/dev/$storagedevice &
+					y) if [[ $OSTYPE == 'darwin'* ]]; then
+  							dd bs=32768 if=55aa of=/dev/$storagedevice &
+						fi
+						if [[ $OSTYPE == 'linux'* ]]; then
+			  				dd bs=32768 iflag=fullblock if=55aa of=/dev/$storagedevice &
+						fi
 							echo "Fill Task Started, you may check progress with (3) at the main menu"
 							echo "Press any key to go to main menu "
 							read -r continue;;
@@ -88,7 +93,12 @@ do
 			echo "Type (y) to continue "
 			read -r confirmresponse
 				case $confirmresponse in 
-					y) dd bs=32768 if=aa55 of=/dev/$storagedevice &
+					y) 	if [[ $OSTYPE == 'darwin'* ]]; then
+  							dd bs=32768 if=aa55 of=/dev/$storagedevice &
+						fi
+						if [[ $OSTYPE == 'linux'* ]]; then
+			  				dd bs=32768 iflag=fullblock if=aa55 of=/dev/$storagedevice &
+						fi
 							echo "Fill Task Started, you may check progress with (3) at the main menu"
 							echo "Press any key to go to main menu"
 							read -r continue;;
